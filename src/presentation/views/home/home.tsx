@@ -1,35 +1,19 @@
-import { useEffect, useState } from "react";
-import { getMovies } from "../../../infrastructure/movies/service";
+import { Col, Row } from "antd";
 import { MovieCard } from "../../components/movieCard/movieCard";
-import type { MovieSummary } from "../../../domain/entities/movie-summary";
-import { Row, Col } from "antd";
-
-export function Home() {
-    const [movies, setMovies] = useState<MovieSummary[]>([]);
-
-        const fetch = async () => {
-            const {
-            data: { results },
-        } = await getMovies();
-
-setMovies(results);
-};
-
-useEffect(() => {
-    fetch();
-}, []);
-
-return (
-<div className="container">
-    <Row gutter={[24, 24]}>
-        {movies.map((movie) => (
-            <Col span={4}>
-                <div key={movie.id} className="col-3">
-                    <MovieCard movie={movie} />
-                </div>
-            </Col>
-        ))}
-    </Row>
-</div>
-);
+import { useGetMovies } from "../../../application/queries/get-movies/useGetMovies";
+export default function Home() {
+    const { data, isLoading } = useGetMovies();
+    return (
+        <div className="container">
+            <Row gutter={[24, 24]}>
+                {isLoading ? <h1>Loading...</h1> : data?.results.map((movie)=> (
+                    <Col span={4}>
+                        <div key={movie.id} className="col-3">
+                            <MovieCard movie={movie} />
+                        </div>
+                    </Col>
+                ))}
+            </Row>
+        </div>
+    );
 }

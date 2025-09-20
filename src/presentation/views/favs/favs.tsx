@@ -5,7 +5,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { removeMovie } from "../../../infrastructure/store/features/favs";
 import type { ReactElement, ReactNode, ReactPortal } from "react";
 
-export function Favs() {
+function Favs() {
     const dispatch = useDispatch();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
@@ -38,3 +38,4 @@ export function Favs() {
         </div>
     );
 }
+export default Favs;

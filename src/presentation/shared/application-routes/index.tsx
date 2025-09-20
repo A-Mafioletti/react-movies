@@ -1,15 +1,22 @@
-import { Routes, Route, BrowserRouter } from "react-router";
-import { Home } from "../../views/home/home";
-import { Movie } from "../../views/movie/movie";
-import {Favs} from "../../views/favs/favs.tsx";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+// Views
+const Home = React.lazy(() => import("../../views/home/home"))
+const Movie = React.lazy(() => import("../../views/movie/movie"));
+const Favs = React.lazy(() => import("../../views/favs/favs"));
+// Components
+import { MainNav } from "../mainNav/MainNav";
 export function ApplicationRoutes() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/movie/:movieId" element={<Movie />} />
-                <Route path="/favorites" element={<Favs />} />
-            </Routes>
-        </BrowserRouter>
-    );
+return (
+<>
+<BrowserRouter>
+<MainNav />
+<Routes>
+<Route path="/" element={<Home />} />
+<Route path="/movie/:movieId" element={<Movie />} />
+<Route path="/favorites" element={<Favs />} />
+</Routes>
+</BrowserRouter>
+</>
+);
 }
